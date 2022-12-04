@@ -1,0 +1,57 @@
+.container {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding: 16px 32px;
+  // box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  left: 0;
+  top: 0;
+  background: rgba(255, 255, 255, 0.9);
+  z-index: 1000;
+  align-items: center;
+
+  backdrop-filter: blur(10px);
+
+  & > h5 {
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  nav {
+    ul {
+      display: flex;
+      list-style: none;
+      gap: 32px;
+      align-items: center;
+
+      li {
+        cursor: pointer;
+        transition: 0.2s ease;
+
+        &:hover {
+          transform: scale(1.05) translateY(-2px);
+        }
+
+        &.logoutButton {
+          background: var(--primary);
+          padding: 4px 16px;
+          border-radius: 4px;
+          color: var(--white);
+        }
+      }
+
+      a {
+        li {
+          background: var(--primary);
+          color: var(--white);
+          padding: 4px 16px;
+          border-radius: 4px;
+        }
+      }
+    }
+  }
+}

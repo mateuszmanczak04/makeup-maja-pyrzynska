@@ -1,0 +1,20 @@
+.container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 16px;
+  padding: 128px 32px;
+  text-align: center;
+  transform: scale(0.8);
+  transition: 2s ease;
+
+  &.animated {
+    transform: none;
+  }
+
+  a {
+    color: var(--blue);
+  }
+}

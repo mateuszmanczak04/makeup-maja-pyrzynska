@@ -1,0 +1,19 @@
+.container {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 8px solid white;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  border-top: 8px solid var(--blue);
+  border-bottom: 8px solid var(--blue);
+  animation: spin 1.5s ease infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
