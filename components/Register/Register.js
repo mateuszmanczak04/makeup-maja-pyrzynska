@@ -9,6 +9,7 @@ export default function Register() {
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
   const confirmPasswordInputRef = useRef();
+  const usernameInputRef = useRef();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -19,6 +20,7 @@ export default function Register() {
     setError('');
 
     const email = emailInputRef.current.value;
+    const username = usernameInputRef.current.value;
     const password = passwordInputRef.current.value;
     const confirmPassword = confirmPasswordInputRef.current.value;
 
@@ -32,6 +34,7 @@ export default function Register() {
       method: 'POST',
       body: JSON.stringify({
         email,
+        username,
         password,
       }),
       headers: {
@@ -40,8 +43,6 @@ export default function Register() {
     });
 
     const json = await response.json();
-
-    console.log(json);
 
     if (!response.ok) {
       setError(json.message);
@@ -72,6 +73,10 @@ export default function Register() {
         <label>
           <h5>E-mail</h5>
           <input type='email' ref={emailInputRef} />
+        </label>
+        <label>
+          <h5>Nazwa użytkownika</h5>
+          <input type='text' ref={usernameInputRef} />
         </label>
         <label>
           <h5>Hasło</h5>

@@ -1,6 +1,8 @@
 .container {
   height: 100vh;
   overflow: hidden;
+  position: fixed;
+  z-index: 1000;
 
   .openButton {
     position: fixed;
@@ -16,11 +18,11 @@
     border-radius: 8px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     cursor: pointer;
-    z-index: 998;
+    // z-index: 998;
   }
 
   .backdrop {
-    z-index: 999;
+    // z-index: 999;
     width: 100vw;
     height: 100vh;
     background: rgba(0, 0, 0, 0.8);
@@ -49,7 +51,7 @@
     justify-content: center;
     background: rgba(255, 255, 255, 0.9);
     backdrop-filter: blur(10px);
-    z-index: 1000;
+    // z-index: 1000;
     overflow-y: scroll;
     transform: translateX(-100%);
     transition: 0.4s ease;

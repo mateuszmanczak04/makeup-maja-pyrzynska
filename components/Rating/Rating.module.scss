@@ -1,0 +1,14 @@
+.container {
+  display: flex;
+  gap: 4px;
+  font-size: 24px;
+
+  .changeable {
+    cursor: pointer;
+    transition: 0.2s ease;
+
+    &:hover {
+      scale: 1.2;
+    }
+  }
+}

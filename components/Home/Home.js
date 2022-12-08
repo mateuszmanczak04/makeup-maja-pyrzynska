@@ -1,12 +1,12 @@
 import Head from 'next/head';
 import AboutMe from '../AboutMe/AboutMe';
-import Carousel from '../Carousel/Carousel';
 import Contact from '../Contact/Contact';
 import Footer from '../Footer/Footer';
 import Hero from '../Hero/Hero';
+import Reviews from '../Reviews/Reviews';
 import styles from './Home.module.scss';
 
-export default function Home() {
+export default function Home({ reviews }) {
   return (
     <div className={styles.container}>
       <Head>
@@ -16,6 +16,7 @@ export default function Home() {
       </Head>
       <Hero />
       <AboutMe />
+      <Reviews reviews={reviews} />
       <Contact />
       <Footer />
     </div>

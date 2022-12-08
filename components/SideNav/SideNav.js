@@ -54,7 +54,7 @@ export default function SideNav() {
               </li>
               <li
                 onClick={() => {
-                  scrollToId('hero', router);
+                  scrollToId('reviews', router);
                   toggleOpen();
                 }}>
                 <h5>Opinie</h5>

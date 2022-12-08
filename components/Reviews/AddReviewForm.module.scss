@@ -1,0 +1,47 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 32px 0px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  border-radius: 16px;
+  gap: 8px;
+  align-items: center;
+
+  textarea {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: rgba(0, 0, 0, 0.05);
+    resize: none;
+    padding: 16px;
+    font-size: 18px;
+    height: 128px;
+    border-radius: 8px;
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
+    border: 2px solid rgba(0, 0, 0, 0.2);
+  }
+
+  button {
+    background: var(--primary);
+    color: var(--white);
+    font-weight: 500;
+    border: none;
+    outline: none;
+    font-size: 18px;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: 0.2s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+    }
+
+    &:active {
+      transform: none;
+      opacity: 0.9;
+    }
+  }
+}

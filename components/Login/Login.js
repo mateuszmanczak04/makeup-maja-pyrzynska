@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { useRef, useState } from 'react';
 import styles from './Login.module.scss';
-import { signIn } from 'next-auth/react';
+import { signIn, getSession, csrfToken } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import Loading from '../Loading/Loading';
 
-export default function Login() {
+export default function Login({ providers }) {
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
   const router = useRouter();
@@ -46,6 +46,11 @@ export default function Login() {
           <input type='password' ref={passwordInputRef} />
         </label>
         <button disabled={loading}>Zaloguj</button>
+
+        <div className={styles.google} onClick={() => signIn('google')}>
+          Zaloguj się z Google
+        </div>
+
         <Link href='/rejestracja'>Potrzebujesz konta?</Link>
         {error && <p className='error'>{error}</p>}
         {loading && <Loading />}

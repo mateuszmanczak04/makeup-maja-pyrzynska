@@ -20,7 +20,7 @@ export default function Header() {
           <li onClick={() => scrollToId('contact', router)}>
             <h5>Kontakt</h5>
           </li>
-          <li onClick={() => scrollToId('hero', router)}>
+          <li onClick={() => scrollToId('reviews', router)}>
             <h5>Opinie</h5>
           </li>
           <li onClick={() => scrollToId('hero', router)}>

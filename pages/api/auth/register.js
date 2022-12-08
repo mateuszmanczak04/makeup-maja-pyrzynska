@@ -6,9 +6,9 @@ async function handler(req, res) {
     return;
   }
 
-  const { email, password } = req.body;
+  const { email, username, password } = req.body;
 
-  if (!email || !password) {
+  if (!email || !username || !password) {
     return res.status(400).json({
       message: 'Upewnij się, że podałeś wszystkie potrzebne informacje.',
     });
@@ -26,8 +26,6 @@ async function handler(req, res) {
     .collection('users')
     .findOne({ email: email.toLowerCase() });
 
-  console.log(email.toLowerCase());
-
   if (existingUser) {
     client.close();
     return res
@@ -39,6 +37,7 @@ async function handler(req, res) {
 
   await db.collection('users').insertOne({
     email: email.toLowerCase(),
+    username,
     password: hashedPassword,
   });
 
