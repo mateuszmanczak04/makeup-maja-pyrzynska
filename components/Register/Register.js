@@ -72,19 +72,23 @@ export default function Register() {
         <h2>Rejestracja</h2>
         <label>
           <h5>E-mail</h5>
-          <input type='email' ref={emailInputRef} />
+          <input type='email' ref={emailInputRef} defaultValue='' />
         </label>
         <label>
           <h5>Nazwa użytkownika</h5>
-          <input type='text' ref={usernameInputRef} />
+          <input type='text' ref={usernameInputRef} defaultValue='' />
         </label>
         <label>
           <h5>Hasło</h5>
-          <input type='password' ref={passwordInputRef} />
+          <input type='password' ref={passwordInputRef} defaultValue='' />
         </label>
         <label>
           <h5>Powtórz hasło</h5>
-          <input type='password' ref={confirmPasswordInputRef} />
+          <input
+            type='password'
+            ref={confirmPasswordInputRef}
+            defaultValue=''
+          />
         </label>
         <button disabled={loading}>Zarejestruj</button>
         <Link href='/logowanie'>Masz już konto?</Link>

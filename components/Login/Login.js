@@ -39,11 +39,11 @@ export default function Login({ providers }) {
         <h2>Logowanie</h2>
         <label>
           <h5>E-mail</h5>
-          <input type='email' ref={emailInputRef} />
+          <input type='email' ref={emailInputRef} defaultValue='' />
         </label>
         <label>
           <h5>Hasło</h5>
-          <input type='password' ref={passwordInputRef} />
+          <input type='password' ref={passwordInputRef} defaultValue='' />
         </label>
         <button disabled={loading}>Zaloguj</button>
 
@@ -52,6 +52,7 @@ export default function Login({ providers }) {
         </div>
 
         <Link href='/rejestracja'>Potrzebujesz konta?</Link>
+        <Link href='/reset-hasla'>Zapomniałeś hasła?</Link>
         {error && <p className='error'>{error}</p>}
         {loading && <Loading />}
       </form>

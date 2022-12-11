@@ -73,6 +73,7 @@ export default NextAuth({
           email: user.email,
           username: user.name,
           image: user.image,
+          emailVerified: true,
         });
         const newUserId = newUser._id;
         const newUserDoc = await db

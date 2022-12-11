@@ -40,17 +40,17 @@ export default function SideNav() {
             <ul>
               <li
                 onClick={() => {
+                  scrollToId('hero', router);
+                  toggleOpen();
+                }}>
+                <h5>Portfolio</h5>
+              </li>
+              <li
+                onClick={() => {
                   scrollToId('aboutMe', router);
                   toggleOpen();
                 }}>
                 <h5>O mnie</h5>
-              </li>
-              <li
-                onClick={() => {
-                  scrollToId('contact', router);
-                  toggleOpen();
-                }}>
-                <h5>Kontakt</h5>
               </li>
               <li
                 onClick={() => {
@@ -61,10 +61,10 @@ export default function SideNav() {
               </li>
               <li
                 onClick={() => {
-                  scrollToId('hero', router);
+                  scrollToId('contact', router);
                   toggleOpen();
                 }}>
-                <h5>Portfolio</h5>
+                <h5>Kontakt</h5>
               </li>
               {status === 'authenticated' ? (
                 <li

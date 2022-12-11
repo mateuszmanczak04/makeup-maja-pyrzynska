@@ -14,17 +14,17 @@ export default function Header() {
       <h5 onClick={() => scrollToId('hero', router)}>Make-up Maja Pyrzyńska</h5>
       <nav>
         <ul>
+          <li onClick={() => scrollToId('hero', router)}>
+            <h5>Portfolio</h5>
+          </li>
           <li onClick={() => scrollToId('aboutMe', router)}>
             <h5>O mnie</h5>
-          </li>
-          <li onClick={() => scrollToId('contact', router)}>
-            <h5>Kontakt</h5>
           </li>
           <li onClick={() => scrollToId('reviews', router)}>
             <h5>Opinie</h5>
           </li>
-          <li onClick={() => scrollToId('hero', router)}>
-            <h5>Portfolio</h5>
+          <li onClick={() => scrollToId('contact', router)}>
+            <h5>Kontakt</h5>
           </li>
           {status === 'authenticated' ? (
             <li onClick={signOut} className={styles.logoutButton}>
