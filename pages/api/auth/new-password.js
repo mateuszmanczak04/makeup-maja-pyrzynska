@@ -38,7 +38,7 @@ export default async function newPassword(req, res) {
 
     await db
       .collection('users')
-      .update({ email }, { $set: { password: hashedPassword } });
+      .updateOne({ email }, { $set: { password: hashedPassword } });
 
     client.close();
     res.status(201).json({ message: 'Pomyślnie zmieniono hasło.' });

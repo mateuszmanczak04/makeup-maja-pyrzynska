@@ -26,7 +26,7 @@ const Rating = ({ setRating, rating }) => {
           <FaStar
             key={index}
             onClick={setRating && (() => handleClick(index + 1))}
-            color={(hoverValue || rating) > index ? 'var(--primary)' : 'grey'}
+            fill={(hoverValue || rating) > index ? 'var(--primary)' : 'grey'}
             onMouseOver={setRating && (() => handleMouseOver(index + 1))}
             onMouseLeave={setRating && handleMouseLeave}
             className={setRating && styles.changeable}

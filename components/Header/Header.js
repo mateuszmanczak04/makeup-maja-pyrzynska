@@ -27,9 +27,11 @@ export default function Header() {
             <h5>Kontakt</h5>
           </li>
           {status === 'authenticated' ? (
-            <li onClick={signOut} className={styles.logoutButton}>
-              <h5>Wyloguj</h5>
-            </li>
+            <Link href='/konto'>
+              <li>
+                <h5>Konto</h5>
+              </li>
+            </Link>
           ) : (
             <Link href='/logowanie'>
               <li>

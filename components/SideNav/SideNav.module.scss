@@ -114,9 +114,12 @@
           a {
             li {
               background: var(--primary);
-              color: var(--white);
               padding: 4px 16px;
               border-radius: 4px;
+
+              h5 {
+                color: var(--white);
+              }
             }
           }
         }

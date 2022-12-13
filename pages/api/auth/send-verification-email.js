@@ -2,13 +2,25 @@ import nodemailer from 'nodemailer';
 import crypto from 'crypto';
 import { connectToDatabase } from '../../../lib/db';
 import jwt from 'jsonwebtoken';
+import { getToken } from 'next-auth/jwt';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(400).json({ message: 'Dozwolona metoda to POST' });
   }
   try {
-    const { email } = req.body;
+    let email;
+
+    const token = await getToken({
+      req,
+      secret: process.env.NEXTAUTH_SECRET,
+    });
+
+    if (token) {
+      email = token.email;
+    } else {
+      email = req.body.email;
+    }
 
     if (!email) {
       return res.status(400).json({ message: 'Brakuje e-maila.' });
@@ -23,15 +35,6 @@ export default async function handler(req, res) {
       return res
         .status(400)
         .json({ message: 'Nie istnieje konto o podanym e-mailu.' });
-    }
-
-    if (!user.emailVerified) {
-      return res
-        .status(400)
-        .json({
-          message:
-            'Nie możemy przywrócić hasła użytkownikowi, który nie potwierdził jeszcze swojego e-maila.',
-        });
     }
 
     var emailVerifyHash = await jwt.sign({ email }, process.env.JWT_SECRET);
@@ -55,16 +58,19 @@ export default async function handler(req, res) {
         subject: 'Potwierdzenie rejestracji',
         text: `Wchodząc w poniższy link, potwierdzasz rejestrację na stronie ${process.env.BASE_URL}`,
         html: `
-        <h1>
-          Wchodząc w poniższy link, potwierdzasz rejestrację na stronie ${process.env.BASE_URL}:
-        </h1>
-        <a href='${process.env.BASE_URL}/api/verify/${emailVerifyHash}'>
-          Kliknij tutaj
-        </a>
+        <div style='display: flex; flex-direction: column; gap: 16px; align-items: center; width: 100%; max-width: 600px; background: #f69b98; padding: 24px; border-radius: 16px; margin: auto;' >
+          <h1 style='font-size: 24px; text-align: center; color: #ffffff;'>
+            Wchodząc w poniższy link, potwierdzasz rejestrację na stronie Makeup Maja Pyrzyńska:
+          </h1>
+          <a href='${process.env.BASE_URL}/api/verify/${emailVerifyHash}' style='color: rgb(19, 113, 219); font-size: 18px;'>
+            Kliknij tutaj
+          </a>
+        </div>
       `,
       },
       function (err, info) {
         if (err) {
+          console.log(err);
           return res
             .status(500)
             .json({ message: 'Wystąpił błąd poczas wysyłania e-maila.' });
@@ -73,6 +79,7 @@ export default async function handler(req, res) {
       }
     );
   } catch (err) {
+    console.log(err);
     return res.status(500).json({ message: 'Błąd serwera' });
   }
 }

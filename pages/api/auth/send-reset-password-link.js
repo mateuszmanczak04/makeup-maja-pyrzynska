@@ -21,6 +21,13 @@ export default async function sendResetPasswordLink(req, res) {
         .json({ message: 'Nie istnieje konto o podanym e-mailu.' });
     }
 
+    if (!user.emailVerified) {
+      return res.status(400).json({
+        message:
+          'Nie możemy przywrócić hasła użytkownikowi, który nie potwierdził jeszcze swojego e-maila.',
+      });
+    }
+
     var resetPasswordHash = await jwt.sign({ email }, process.env.JWT_SECRET, {
       expiresIn: '1h',
     });
