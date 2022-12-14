@@ -62,7 +62,6 @@ async function handler(req, res) {
     client.close();
     res.status(201).json({ message: 'Pomyślnie zarejestrowano.' });
   } catch (err) {
-    console.log(err);
     return res.status(500).json({ message: 'Błąd serwera' });
   }
 }

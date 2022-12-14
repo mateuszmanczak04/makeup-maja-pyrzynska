@@ -144,11 +144,8 @@ const Account = () => {
       //   'Content-Type': 'multipart/form-data',
       // },
     });
-    console.log('profile image updated');
 
     const json = await response.json();
-
-    console.log(json);
 
     if (!response.ok) {
       setError(json.message);

@@ -13,7 +13,7 @@ export default async function handler(req, res) {
 
   form.parse(req, async (err, fields, files) => {
     if (err) {
-      return res.status(500).json({ message: 'Błąd serwera.', err });
+      return res.status(500).json({ message: 'Błąd serwera.' });
     }
 
     let oldPath = files.image.filepath;
@@ -24,7 +24,7 @@ export default async function handler(req, res) {
       files.image.originalFilename;
     fs.rename(oldPath, newPath, function (err) {
       if (err) {
-        return res.status(500).json({ message: 'Błąd serwera.', err });
+        return res.status(500).json({ message: 'Błąd serwera.' });
       }
     });
 

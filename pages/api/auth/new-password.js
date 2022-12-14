@@ -43,7 +43,6 @@ export default async function newPassword(req, res) {
     client.close();
     res.status(201).json({ message: 'Pomyślnie zmieniono hasło.' });
   } catch (err) {
-    console.log(err);
     return res.status(500).json({ message: 'Błąd serwera' });
   }
 }

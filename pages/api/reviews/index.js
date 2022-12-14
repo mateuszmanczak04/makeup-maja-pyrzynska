@@ -9,8 +9,6 @@ export default async function handler(req, res) {
         secret: process.env.NEXTAUTH_SECRET,
       });
 
-      console.log(token);
-
       if (!token) {
         return res
           .status(400)
@@ -72,7 +70,6 @@ export default async function handler(req, res) {
       const { _id } = req.body;
     }
   } catch (err) {
-    console.log(err.message);
     return res.status(500).json({ message: 'Błąd serwera' });
   }
 }

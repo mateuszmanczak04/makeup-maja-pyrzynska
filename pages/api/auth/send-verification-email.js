@@ -70,7 +70,6 @@ export default async function handler(req, res) {
       },
       function (err, info) {
         if (err) {
-          console.log(err);
           return res
             .status(500)
             .json({ message: 'Wystąpił błąd poczas wysyłania e-maila.' });
@@ -79,7 +78,6 @@ export default async function handler(req, res) {
       }
     );
   } catch (err) {
-    console.log(err);
     return res.status(500).json({ message: 'Błąd serwera' });
   }
 }
