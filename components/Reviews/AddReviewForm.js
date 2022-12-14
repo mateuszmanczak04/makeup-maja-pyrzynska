@@ -15,7 +15,7 @@ const AddReviewForm = ({ setReviews, reviews }) => {
     e.preventDefault();
     setError('');
     setLoading(true);
-    const res = await fetch('/api/reviews', {
+    const res = await fetch(process.env.BASE_URL + '/api/reviews', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -23,7 +23,7 @@ const Account = () => {
     const fetchUserData = async () => {
       setError('');
       setLoading(true);
-      const res = await fetch('/api/user', {
+      const res = await fetch(process.env.BASE_URL + '/api/user', {
         method: 'GET',
       });
 
@@ -50,9 +50,12 @@ const Account = () => {
     setLoading(true);
     setError('');
     setMessage('');
-    const res = await fetch('/api/auth/send-verification-email', {
-      method: 'POST',
-    });
+    const res = await fetch(
+      'process.env.BASE_URL + /api/auth/send-verification-email',
+      {
+        method: 'POST',
+      }
+    );
 
     const json = await res.json();
 
@@ -78,16 +81,19 @@ const Account = () => {
       return;
     }
 
-    const res = await fetch('/api/user/change-password', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        oldPassword: oldPassword,
-        newPassword: newPassword,
-      }),
-    });
+    const res = await fetch(
+      process.env.BASE_URL + '/api/user/change-password',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          oldPassword: oldPassword,
+          newPassword: newPassword,
+        }),
+      }
+    );
 
     const json = await res.json();
 
@@ -109,13 +115,16 @@ const Account = () => {
     setLoading(true);
     setError('');
     setMessage('');
-    const res = await fetch('/api/user/change-username', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ newUsername: username }),
-    });
+    const res = await fetch(
+      process.env.BASE_URL + '/api/user/change-username',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ newUsername: username }),
+      }
+    );
 
     const json = await res.json();
 
@@ -137,13 +146,16 @@ const Account = () => {
     const formData = new FormData();
     formData.append('image', image);
 
-    const response = await fetch('/api/images/upload-profile-image', {
-      method: 'POST',
-      body: formData,
-      // headers: {
-      //   'Content-Type': 'multipart/form-data',
-      // },
-    });
+    const response = await fetch(
+      process.env.BASE_URL + '/api/images/upload-profile-image',
+      {
+        method: 'POST',
+        body: formData,
+        // headers: {
+        //   'Content-Type': 'multipart/form-data',
+        // },
+      }
+    );
 
     const json = await response.json();
 
@@ -163,7 +175,7 @@ const Account = () => {
     setMessage('');
     setError('');
 
-    const res = await fetch('/api/user/change-avatar', {
+    const res = await fetch(process.env.BASE_URL + '/api/user/change-avatar', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

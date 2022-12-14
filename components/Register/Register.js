@@ -30,7 +30,7 @@ export default function Register() {
       return;
     }
 
-    const response = await fetch('/api/auth/register', {
+    const response = await fetch(process.env.BASE_URL + '/api/auth/register', {
       method: 'POST',
       body: JSON.stringify({
         email,

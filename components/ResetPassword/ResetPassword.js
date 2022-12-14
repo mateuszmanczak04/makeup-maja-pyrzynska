@@ -14,13 +14,16 @@ const ResetPassword = () => {
     setError('');
     setMessage('');
 
-    const res = await fetch('/api/auth/send-reset-password-link', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email }),
-    });
+    const res = await fetch(
+      process.env.BASE_URL + '/api/auth/send-reset-password-link',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      }
+    );
 
     const json = await res.json();
 

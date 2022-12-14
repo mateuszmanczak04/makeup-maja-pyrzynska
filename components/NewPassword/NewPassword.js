@@ -26,17 +26,20 @@ export default function NewPassword({ email, ableTo, token }) {
       return;
     }
 
-    const response = await fetch('/api/auth/new-password', {
-      method: 'POST',
-      body: JSON.stringify({
-        email,
-        password,
-        token,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    const response = await fetch(
+      process.env.BASE_URL + '/api/auth/new-password',
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          email,
+          password,
+          token,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
 
     const json = await response.json();
 
