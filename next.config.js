@@ -6,7 +6,8 @@ const nextConfig = {
   swcMinify: true,
   env: {
     // BASE_URL: 'http://localhost:3000',
-    BASE_URL: 'https://makeup-maja-pyrzynska-mateuszmanczak04.vercel.app/',
+    // BASE_URL: 'https://makeup-maja-pyrzynska-mateuszmanczak04.vercel.app/',
+    BASE_URL: 'https://main.d1d4b0xenh480y.amplifyapp.com',
   },
 
   // future: {
