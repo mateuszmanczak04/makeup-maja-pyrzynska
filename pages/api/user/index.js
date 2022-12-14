@@ -40,6 +40,7 @@ export default async function handler(req, res) {
       username: user.username,
       emailVerified: user.emailVerified,
       hasPassword,
+      avatar: user.avatar,
     });
   } catch (err) {
     return res.status(500).json({ message: 'Błąd serwera' });

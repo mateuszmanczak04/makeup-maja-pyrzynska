@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import Loading from '../Loading/Loading';
+import Image from 'next/image';
 
 const Account = () => {
   const [email, setEmail] = useState('');
@@ -16,6 +17,7 @@ const Account = () => {
   const router = useRouter();
   const [emailVerified, setEmailVerified] = useState(true);
   const [hasPassword, setHasPassword] = useState(false);
+  const [imagePath, setImagePath] = useState('');
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -37,6 +39,7 @@ const Account = () => {
       setEmail(json.email);
       setEmailVerified(json.emailVerified);
       setHasPassword(json.hasPassword);
+      setImagePath(json.avatar);
       setLoading(false);
     };
 
@@ -126,6 +129,63 @@ const Account = () => {
     setLoading(false);
   };
 
+  const handleUploadProfileImage = async (e) => {
+    setLoading(true);
+    setMessage('');
+    setError('');
+    const image = e.target.files[0];
+    const formData = new FormData();
+    formData.append('image', image);
+
+    const response = await fetch('/api/images/upload-profile-image', {
+      method: 'POST',
+      body: formData,
+      // headers: {
+      //   'Content-Type': 'multipart/form-data',
+      // },
+    });
+    console.log('profile image updated');
+
+    const json = await response.json();
+
+    console.log(json);
+
+    if (!response.ok) {
+      setError(json.message);
+      setLoading(false);
+      return;
+    }
+
+    setImagePath(json.imagePath);
+    setMessage(json.message);
+    setLoading(false);
+  };
+
+  const handleSaveProfileImage = async () => {
+    setLoading(true);
+    setMessage('');
+    setError('');
+
+    const res = await fetch('/api/user/change-avatar', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ imagePath }),
+    });
+
+    const json = await res.json();
+
+    if (!res.ok) {
+      setError(json.message);
+      setLoading(false);
+      return;
+    }
+
+    setMessage(json.message);
+    setLoading(false);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.content}>
@@ -142,6 +202,24 @@ const Account = () => {
             <button>Zmień nazwę użytkownika</button>
           </label>
         </form>
+        <label>
+          <input
+            type='file'
+            name='image'
+            onChange={handleUploadProfileImage}
+            accept='image/png,image/gif,image/jpeg'
+          />
+          <Image
+            src={imagePath || '/images/avatars/default.jpg'}
+            alt='zdjęcie profilowe'
+            width={300}
+            height={300}
+          />
+          <div className={styles.info}>Naciśnij, aby wybrać nowe zdjęcie</div>
+        </label>
+        <button onClick={handleSaveProfileImage}>
+          Zapisz zdjęcie profilowe
+        </button>
         {hasPassword && (
           <form autoComplete='new-password' onSubmit={handleChangePassword}>
             <label>

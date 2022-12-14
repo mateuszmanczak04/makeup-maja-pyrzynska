@@ -13,6 +13,40 @@
     gap: 32px;
     flex-direction: column;
 
+    & > label {
+      min-height: 32px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      cursor: pointer;
+      width: 100%;
+      max-width: 300px;
+
+      input {
+        display: none;
+      }
+
+      img {
+        object-fit: cover;
+        border-radius: 50%;
+        position: relative;
+      }
+
+      .info {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.6);
+        color: white;
+        width: 100%;
+        text-align: center;
+        padding: 8px;
+        border-radius: 8px;
+        z-index: 5;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+    }
+
     form {
       width: 100%;
       display: flex;

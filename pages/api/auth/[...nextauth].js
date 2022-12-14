@@ -72,7 +72,7 @@ export default NextAuth({
         const newUser = await db.collection('users').insertOne({
           email: user.email,
           username: user.name,
-          image: user.image,
+          avatar: '',
           emailVerified: true,
         });
         const newUserId = newUser._id;

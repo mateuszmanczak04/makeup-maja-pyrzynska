@@ -8,6 +8,7 @@ const nextConfig = {
     // BASE_URL: 'http://localhost:3000',
     BASE_URL: 'https://makeup-maja-pyrzynska-mateuszmanczak04.vercel.app/',
   },
+
   // future: {
   //   webpack5: true,
   // },
