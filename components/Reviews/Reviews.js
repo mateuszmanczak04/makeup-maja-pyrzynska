@@ -18,6 +18,7 @@ const Reviews = () => {
         return;
       }
 
+      console.log(json.message);
       setReviews(json.reviews);
       setLoading(false);
     };
