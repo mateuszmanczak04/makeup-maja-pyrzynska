@@ -2,8 +2,6 @@ import { getToken } from 'next-auth/jwt';
 import { connectToDatabase } from '../../../lib/db';
 
 export default async function handler(req, res) {
-  return res.status(200).json({ message: '/reviews api route works' });
-
   try {
     if (req.method === 'POST') {
       const token = await getToken({
