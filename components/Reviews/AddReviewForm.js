@@ -4,7 +4,7 @@ import styles from './AddReviewForm.module.scss';
 import { useSession } from 'next-auth/react';
 import Loading from '../Loading/Loading';
 
-const AddReviewForm = ({ setReviews, reviews }) => {
+const AddReviewForm = ({ setReviews, reviews, setMayAdd }) => {
   const { data: session, status } = useSession();
   const [rating, setRating] = useState(5);
   const [description, setDescription] = useState('');
@@ -31,6 +31,7 @@ const AddReviewForm = ({ setReviews, reviews }) => {
     }
 
     setReviews([...reviews, json.review]);
+    setMayAdd(false);
     setLoading(false);
   };
 

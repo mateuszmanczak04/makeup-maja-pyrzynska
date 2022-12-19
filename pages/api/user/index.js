@@ -43,6 +43,7 @@ export default async function handler(req, res) {
       avatar: user.avatar,
     });
   } catch (err) {
+    console.log(err);
     return res.status(500).json({ message: 'Błąd serwera' });
   }
 }

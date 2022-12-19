@@ -1,5 +1,6 @@
 import { getToken } from 'next-auth/jwt';
 import { connectToDatabase } from '../../../lib/db';
+import { ObjectId } from 'mongodb';
 
 export default async function handler(req, res) {
   try {
@@ -37,10 +38,23 @@ export default async function handler(req, res) {
         return res.status(400).json({ message: 'Brakuje oceny lub autora.' });
       }
 
+      const existingReview = await db
+        .collection('reviews')
+        .findOne({ author: authorId });
+
+      if (existingReview) {
+        return res.status(400).json({
+          message:
+            'Już opublikowałeś(aś) opinię. Usuń poprzednią, aby dodać kolejną.',
+        });
+      }
+
+      const date = Date.now();
+
       const reviewId = (
         await db
           .collection('reviews')
-          .insertOne({ author: authorId, rating, description })
+          .insertOne({ author: authorId, rating, description, date })
       ).insertedId;
       const review = await db.collection('reviews').findOne({ _id: reviewId });
 
@@ -67,9 +81,52 @@ export default async function handler(req, res) {
 
       return res.status(200).json({ reviews: reviewsToReturn });
     } else if (req.method === 'DELETE') {
-      const { _id } = req.body;
+      const { reviewId } = req.body;
+      if (!reviewId) {
+        return res.status(400).json({ message: 'Niepoprawna opinia.' });
+      }
+
+      const token = await getToken({
+        req,
+        secret: process.env.NEXTAUTH_SECRET,
+      });
+
+      if (!token) {
+        return res
+          .status(400)
+          .json({ message: 'Aby to zrobić, musisz podać token.' });
+      }
+
+      const email = token.email;
+
+      const client = await connectToDatabase();
+      const db = client.db();
+
+      const review = await db
+        .collection('reviews')
+        .findOne({ _id: new ObjectId(reviewId) });
+
+      if (!review) {
+        return res.status(400).json({ message: 'Niepoprawna opinia.' });
+      }
+
+      const author = await db
+        .collection('users')
+        .findOne({ email }, { _id: true });
+      const authorId = author._id;
+
+      if (review.author.toString() !== authorId.toString()) {
+        return res
+          .status(400)
+          .json({ message: 'Nie możesz usunąć czyjejś opini.' });
+      }
+
+      await db.collection('reviews').deleteOne({ _id: new ObjectId(reviewId) });
+
+      return res.status(200).json({ message: 'Usunięto opinię.' });
     }
   } catch (err) {
+    console.log(err);
     return res.status(500).json({ message: 'Błąd serwera' });
   }
 }

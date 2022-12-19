@@ -22,19 +22,48 @@ const Reviews = () => {
       setLoading(false);
     };
 
+    const getToKnowIfMayAdd = async () => {
+      const res = await fetch(process.env.BASE_URL + '/api/reviews/may-add', {
+        method: 'GET',
+      });
+
+      const json = await res.json();
+
+      if (res.ok) {
+        setMayAdd(json.mayAdd);
+      }
+    };
+
     fetchReviews();
+    getToKnowIfMayAdd();
   }, []);
 
   const { data: session, status } = useSession();
   const [loading, setLoading] = useState(true);
   const [reviews, setReviews] = useState([]);
+  const [mayAdd, setMayAdd] = useState(false);
+
+  const removeReview = (_id) => {
+    setReviews((prev) => {
+      return prev.filter((r) => r._id !== _id);
+    });
+    setMayAdd(true);
+  };
 
   return (
     <div className={styles.container} id='reviews'>
       <h2>Opinie</h2>
-      {!loading && <ReviewList reviews={reviews} />}
+      {!loading && reviews && (
+        <ReviewList reviews={reviews} removeReview={removeReview} />
+      )}
       {loading && <Loading />}
-      {session && <AddReviewForm setReviews={setReviews} reviews={reviews} />}
+      {session && mayAdd && (
+        <AddReviewForm
+          setReviews={setReviews}
+          reviews={reviews}
+          setMayAdd={setMayAdd}
+        />
+      )}
     </div>
   );
 };

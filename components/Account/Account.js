@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import Loading from '../Loading/Loading';
-import Image from 'next/image';
 
 const Account = () => {
   const [email, setEmail] = useState('');
@@ -17,7 +16,6 @@ const Account = () => {
   const router = useRouter();
   const [emailVerified, setEmailVerified] = useState(true);
   const [hasPassword, setHasPassword] = useState(false);
-  const [imagePath, setImagePath] = useState('');
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -39,7 +37,6 @@ const Account = () => {
       setEmail(json.email);
       setEmailVerified(json.emailVerified);
       setHasPassword(json.hasPassword);
-      setImagePath(json.avatar);
       setLoading(false);
     };
 
@@ -138,106 +135,29 @@ const Account = () => {
     setLoading(false);
   };
 
-  const handleUploadProfileImage = async (e) => {
-    setLoading(true);
-    setMessage('');
-    setError('');
-    const image = e.target.files[0];
-    const formData = new FormData();
-    formData.append('image', image);
-
-    const response = await fetch(
-      process.env.BASE_URL + '/api/images/upload-profile-image',
-      {
-        method: 'POST',
-        body: formData,
-        // headers: {
-        //   'Content-Type': 'multipart/form-data',
-        // },
-      }
-    );
-
-    const json = await response.json();
-
-    if (!response.ok) {
-      setError(json.message);
-      setLoading(false);
-      return;
-    }
-
-    setImagePath(json.imagePath);
-    setMessage(json.message);
-    setLoading(false);
-  };
-
-  const handleSaveProfileImage = async () => {
-    setLoading(true);
-    setMessage('');
-    setError('');
-
-    const res = await fetch(process.env.BASE_URL + '/api/user/change-avatar', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ imagePath }),
-    });
-
-    const json = await res.json();
-
-    if (!res.ok) {
-      setError(json.message);
-      setLoading(false);
-      return;
-    }
-
-    setMessage(json.message);
-    setLoading(false);
-  };
-
   return (
     <div className={styles.container}>
       <div className={styles.content}>
         <h5>{email}</h5>
-        <form autoComplete='new-password' onSubmit={handleChangeUsername}>
+        <form autoComplete='off' onSubmit={handleChangeUsername}>
           <label>
             <p>Nazwa użytkownika</p>
             <input
               type='text'
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              autoComplete='new-password'
             />
             <button>Zmień nazwę użytkownika</button>
           </label>
         </form>
-        <label>
-          <input
-            type='file'
-            name='image'
-            onChange={handleUploadProfileImage}
-            accept='image/png,image/gif,image/jpeg'
-          />
-          <Image
-            src={imagePath || '/images/avatars/default.jpg'}
-            alt='zdjęcie profilowe'
-            width={300}
-            height={300}
-          />
-          <div className={styles.info}>Naciśnij, aby wybrać nowe zdjęcie</div>
-        </label>
-        <button onClick={handleSaveProfileImage}>
-          Zapisz zdjęcie profilowe
-        </button>
         {hasPassword && (
-          <form autoComplete='new-password' onSubmit={handleChangePassword}>
+          <form onSubmit={handleChangePassword}>
             <label>
               <p>Stare hasło</p>
               <input
                 type='password'
                 value={oldPassword}
                 onChange={(e) => setOldPassword(e.target.value)}
-                autoComplete='new-password'
               />
             </label>
             <label>
@@ -246,7 +166,6 @@ const Account = () => {
                 type='password'
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
-                autoComplete='new-password'
               />
             </label>
             <label>
@@ -255,7 +174,6 @@ const Account = () => {
                 type='password'
                 value={confirmNewPassword}
                 onChange={(e) => setConfirmNewPassword(e.target.value)}
-                autoComplete='new'
               />
             </label>
             <button>Zmień hasło</button>
