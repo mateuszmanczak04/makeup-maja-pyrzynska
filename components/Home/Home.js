@@ -2,6 +2,7 @@ import Head from 'next/head';
 import AboutMe from '../AboutMe/AboutMe';
 import Contact from '../Contact/Contact';
 import Footer from '../Footer/Footer';
+import Gallery from '../Gallery/Gallery';
 import Hero from '../Hero/Hero';
 import Reviews from '../Reviews/Reviews';
 import styles from './Home.module.scss';
@@ -16,6 +17,7 @@ export default function Home({ reviews }) {
       </Head>
       <Hero />
       <AboutMe />
+      <Gallery />
       <Reviews reviews={reviews} />
       <Contact />
       <Footer />

@@ -2,7 +2,7 @@ import Image from 'next/image';
 import React, { useState } from 'react';
 import styles from './Carousel.module.scss';
 import { AiOutlineArrowRight, AiOutlineArrowLeft } from 'react-icons/ai';
-import { slides } from './data';
+import { images as slides } from './data';
 
 const Carousel = () => {
   const [current, setCurrent] = useState(0);
