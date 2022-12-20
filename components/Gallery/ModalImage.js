@@ -29,11 +29,9 @@ const ModalImage = ({ src, close, position }) => {
       if (window.innerWidth * 1.33 > window.innerHeight) {
         image.style.height = '100vh';
         image.style.width = '75vh';
-        console.log('wide');
       } else {
         image.style.width = '100vw';
         image.style.height = '133.3vw';
-        console.log('thin');
       }
     }, 0);
   });

@@ -26,8 +26,6 @@ const Gallery = () => {
               src={image.image}
               className={styles.image}
               onClick={(e) => {
-                // console.log('offsetLeft: ', e.target.offsetLeft);
-                console.log(e.target.width, e.target.height);
                 setCurrentImagePosition({
                   x:
                     e.target.offsetLeft +
