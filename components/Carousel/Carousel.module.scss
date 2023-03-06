@@ -28,40 +28,50 @@
   .imgContainer {
     position: absolute;
     transition: 0.4s ease;
-    transform: translateY(-50%);
     top: 50%;
 
     &.main {
       z-index: 2;
       width: 50%;
       aspect-ratio: 2 / 3;
-      left: 25%;
+      // left: 25%;
+      scale: 1;
+      transform: translate(50%, -50%);
     }
 
     &.hidden {
       opacity: 0;
       z-index: 0;
-      width: 35%;
-      aspect-ratio: 4 / 7;
-      left: 32.5%;
+      // width: 35%;
+      width: 50%;
+      // aspect-ratio: 4 / 7;
+      aspect-ratio: 2/3;
+      // left: 32.5%;
+      scale: 0.5;
+      transform: translate(65%, -66.6%);
     }
 
     &.first {
       opacity: 1;
       z-index: 1;
-      width: 35%;
+      // width: 35%;
+      width: 50%;
       aspect-ratio: 2 / 3;
       cursor: pointer;
-      left: 0;
+      scale: 0.7;
+      transform: translate(0, -66.6%);
     }
 
     &.third {
       opacity: 1;
       z-index: 1;
       cursor: pointer;
-      width: 35%;
+      // width: 35%;
+      width: 50%;
       aspect-ratio: 2/ 3;
-      left: 65%;
+      // left: 65%;
+      scale: 0.7;
+      transform: translate(130%, -66.6%);
     }
 
     img {
